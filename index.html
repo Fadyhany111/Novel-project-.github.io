@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperial Narratives: Robinson Crusoe & Gulliver's Travels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700&family=Spectral:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a3a3a;
+            --primary-medium: #2d5a5a;
+            --accent-gold: #c9a961;
+            --accent-rust: #a85842;
+            --cream: #f5f1e8;
+            --paper: #fffef7;
+            --text-dark: #2a2a2a;
+            --text-medium: #4a4a4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Spectral', Georgia, serif;
+            background: linear-gradient(135deg, var(--cream) 0%, #e8e3d5 100%);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Decorative page border */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 12px solid var(--primary-dark);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+            color: var(--cream);
+            padding: 4rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+            margin: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(201, 169, 97, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            color: var(--accent-gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.95;
+            border-left: 3px solid var(--accent-gold);
+            padding-left: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .course-info {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.95rem;
+            opacity: 0.9;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .course-info span {
+            display: flex;
+            align-items: center;
+        }
+
+        .course-info span::before {
+            content: '◆';
+            margin-right: 0.5rem;
+            color: var(--accent-gold);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--paper);
+            padding: 1rem 2rem;
+            margin: 0 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 0.5rem 1rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-rust);
+            border-bottom-color: var(--accent-gold);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        /* About Section */
+        .about-section {
+            background: var(--paper);
+            padding: 3rem;
+            margin: 2rem 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--accent-gold);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .about-section h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold) 0%, transparent 100%);
+        }
+
+        .group-members {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--cream) 0%, #e8dfc8 100%);
+            border-radius: 8px;
+            direction: rtl;
+        }
+
+        .group-members h3 {
+            font-size: 1.4rem;
+            color: var(--primary-medium);
+            margin-bottom: 1rem;
+            text-align: right;
+        }
+
+        .group-members ul {
+            list-style: none;
+            text-align: right;
+        }
+
+        .group-members li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .group-members li:last-child {
+            border-bottom: none;
+        }
+
+        .group-members li::before {
+            content: '◆ ';
+            color: var(--accent-rust);
+            margin-left: 0.5rem;
+        }
+
+        /* Blog Post Cards */
+        .blog-post {
+            background: var(--paper);
+            padding: 3rem;
+            margin: 3rem 1.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            position: relative;
+            animation: fadeInUp 0.8s ease;
+            animation-delay: 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .blog-post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-gold) 0%, var(--accent-rust) 100%);
+        }
+
+        .post-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--cream);
+        }
+
+        .entry-badge {
+            display: inline-block;
+            background: var(--primary-dark);
+            color: var(--accent-gold);
+            padding: 0.4rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            box-shadow: 3px 3px 0 var(--accent-rust);
+        }
+
+        .post-header h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: var(--text-medium);
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .post-meta span::before {
+            content: '●';
+            margin-right: 0.5rem;
+            color: var(--accent-rust);
+            font-size: 0.7rem;
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-content h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.6rem;
+            color: var(--primary-medium);
+            margin: 2rem 0 1rem;
+        }
+
+        .placeholder-text {
+            background: linear-gradient(135deg, #f9f7f0 0%, #ebe6d8 100%);
+            padding: 2rem;
+            border-radius: 8px;
+            font-style: italic;
+            color: var(--text-medium);
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        /* Video Section */
+        .video-container {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--cream);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .video-placeholder {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+            color: var(--cream);
+            padding: 4rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .video-placeholder h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .video-placeholder p {
+            opacity: 0.9;
+        }
+
+        .video-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .video-link:hover {
+            background: var(--accent-rust);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--cream);
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 1.5rem 1.5rem;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 3rem 1.5rem 2rem;
+                margin: 1rem;
+            }
+
+            .about-section,
+            .blog-post {
+                padding: 2rem 1.5rem;
+                margin: 2rem 1rem;
+            }
+
+            nav {
+                padding: 1rem;
+                margin: 0 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.95rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .post-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .course-info {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Imperial Narratives: Robinson Crusoe & Gulliver's Travels</h1>
+            <p class="subtitle">A Critical Exploration of 18th Century Imperialism in English Literature</p>
+            <div class="course-info">
+                <span>Ain Shams University</span>
+                <span>Faculty of Al-Alsun</span>
+                <span>Department of English</span>
+                <span>Novel EN-PRNV22 (2025-2026)</span>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#entry1">Entry #1: Academic Essay</a></li>
+            <li><a href="#entry2">Entry #2: Creative Comparison</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- About Section -->
+        <section id="about" class="about-section fade-in">
+            <h2>About This Project</h2>
+            <p>This blog serves as our submission for the Year's Work Project in the Novel EN-PRNV22 course. Through two comprehensive entries, we explore the complex representations of imperialism in 18th-century English literature, focusing on Daniel Defoe's <em>Robinson Crusoe</em> and Jonathan Swift's <em>Gulliver's Travels</em>.</p>
+            
+            <p>Our project examines how these seminal works reflect, critique, and interrogate the imperialistic practices of their time, offering insights into colonial ideology, cultural encounters, and the construction of the "civilized" versus the "savage."</p>
+
+            <div class="group-members">
+                <h3>أعضاء المجموعة (Group Members)</h3>
+                <ul>
+                    <li>[اسم الطالب الأول - First Student Name]</li>
+                    <li>[اسم الطالب الثاني - Second Student Name]</li>
+                    <li>[اسم الطالب الثالث - Third Student Name]</li>
+                    <li>[اسم الطالب الرابع - Fourth Student Name]</li>
+                    <!-- Add more members as needed (4-10 members) -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Entry #1: Academic Essay -->
+        <article id="entry1" class="blog-post fade-in">
+            <div class="post-header">
+                <span class="entry-badge">ENTRY #1 - WEEK 8</span>
+                <h2>Imperialism in Robinson Crusoe and Gulliver's Travels: A Comparative Analysis</h2>
+                <div class="post-meta">
+                    <span>Academic Essay</span>
+                    <span>Word Count: 700+ words</span>
+                    <span>Due: Week 8</span>
+                </div>
+            </div>
+
+            <div class="post-content">
+                <div class="placeholder-text">
+                    <p><strong>Instructions for completing this section:</strong></p>
+                    <p>Replace this placeholder text with your academic essay comparing how the imperialistic practices of the 18th century are displayed in Robinson Crusoe and Gulliver's Travels.</p>
+                    <p><strong>Essay Requirements:</strong></p>
+                    <ul style="list-style-position: inside; margin: 1rem 0;">
+                        <li>Minimum 700 words</li>
+                        <li>Include proper academic citations</li>
+                        <li>Analyze specific passages from both novels</li>
+                        <li>Discuss themes of colonialism, power dynamics, and cultural encounters</li>
+                        <li>Original content - NO plagiarism or AI-generated text</li>
+                    </ul>
+                </div>
+
+                <h3>Introduction</h3>
+                <p>[Your introduction paragraph here...]</p>
+
+                <h3>Robinson Crusoe and Colonial Ideology</h3>
+                <p>[Your analysis of Robinson Crusoe here...]</p>
+
+                <h3>Gulliver's Travels: Satire and Imperial Critique</h3>
+                <p>[Your analysis of Gulliver's Travels here...]</p>
+
+                <h3>Comparative Analysis</h3>
+                <p>[Your comparative analysis here...]</p>
+
+                <h3>Conclusion</h3>
+                <p>[Your conclusion here...]</p>
+
+                <h3>Works Cited</h3>
+                <div class="placeholder-text">
+                    <p>[Include your bibliography here using proper MLA or APA format]</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Entry #2: Creative Comparison -->
+        <article id="entry2" class="blog-post fade-in">
+            <div class="post-header">
+                <span class="entry-badge">ENTRY #2 - WEEK 10</span>
+                <h2>Creative Comparison: [Your Novel] meets [Robinson Crusoe/Gulliver's Travels]</h2>
+                <div class="post-meta">
+                    <span>Video Performance</span>
+                    <span>Duration: 5-10 minutes</span>
+                    <span>Due: Week 10</span>
+                </div>
+            </div>
+
+            <div class="post-content">
+                <div class="placeholder-text">
+                    <p><strong>Instructions for completing this section:</strong></p>
+                    <p>This entry should contain:</p>
+                    <ul style="list-style-position: inside; margin: 1rem 0;">
+                        <li>A brief written introduction to your creative comparison</li>
+                        <li>The title and description of your chosen work for comparison</li>
+                        <li>An embedded video or link to your video performance (5-10 minutes)</li>
+                        <li>All group members must participate in the video</li>
+                    </ul>
+                </div>
+
+                <h3>Creative Work Overview</h3>
+                <p>[Introduce your chosen work - novel, short story, film, painting, song, etc. - and explain why you selected it for comparison]</p>
+
+                <h3>Comparative Themes</h3>
+                <p>[Briefly discuss the themes you'll explore in your video performance]</p>
+
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <h4>📹 Video Performance</h4>
+                        <p>Upload your video to YouTube, Google Drive, or any video platform, then paste the link below:</p>
+                    </div>
+                    
+                    <!-- Replace the href with your actual video link -->
+                    <a href="YOUR_VIDEO_LINK_HERE" class="video-link" target="_blank">
+                        🎬 Watch Our Video Performance
+                    </a>
+                    
+                    <p style="margin-top: 1rem; color: var(--text-medium); font-size: 0.95rem;">
+                        <em>Note: To embed the video directly, you can use iframe code from YouTube or other platforms</em>
+                    </p>
+                    
+                    <!-- Example for YouTube embed - uncomment and replace VIDEO_ID -->
+                    <!-- 
+                    <iframe 
+                        width="100%" 
+                        height="400" 
+                        src="https://www.youtube.com/embed/VIDEO_ID" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="margin-top: 1rem; border-radius: 8px;">
+                    </iframe>
+                    -->
+                </div>
+
+                <h3>Reflection</h3>
+                <p>[Add any reflections on the creative process and what you learned from this comparison]</p>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p><strong>Year's Work Project</strong></p>
+        <p>Novel EN-PRNV22 (2025-2026) | Ain Shams University</p>
+        <p>Department of English | Faculty of Al-Alsun</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">© 2025 | Created for Academic Purposes</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Add scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
